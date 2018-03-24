@@ -2,10 +2,7 @@ package com.example.bars;
 
 import com.example.bars.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +39,7 @@ public class BarsCrudMegaController {
     }
 
     @RequestMapping(value = "bars", method = RequestMethod.POST)
-    public Bar saveBar(Bar bar) {
+    public Bar saveBar(@RequestBody Bar bar) {
         return barRepo.save(bar);
     }
 
@@ -67,7 +64,7 @@ public class BarsCrudMegaController {
     }
 
     @RequestMapping(value = "products", method = RequestMethod.POST)
-    public Product saveProduct(Product product) {
+    public Product saveProduct(@RequestBody Product product) {
         return productRepo.save(product);
     }
 
@@ -97,7 +94,7 @@ public class BarsCrudMegaController {
     }
 
     @RequestMapping(value = "currentPrices", method = RequestMethod.POST)
-    public CurrentPrice saveCurrentPrice(CurrentPrice currentPrice) {
+    public CurrentPrice saveCurrentPrice(@RequestBody CurrentPrice currentPrice) {
         return currentPriceRepo.save(currentPrice);
     }
 
@@ -126,7 +123,7 @@ public class BarsCrudMegaController {
     }
 
     @RequestMapping(value = "orderedBeverages", method = RequestMethod.POST)
-    public OrderedBeverage saveOrderedBeverage(OrderedBeverage orderedBeverage) {
+    public OrderedBeverage saveOrderedBeverage(@RequestBody OrderedBeverage orderedBeverage) {
         return orderedBeverageRepo.save(orderedBeverage);
     }
 
@@ -151,7 +148,7 @@ public class BarsCrudMegaController {
     }
 
     @RequestMapping(value = "round", method = RequestMethod.POST)
-    public Round saveRound(Round round) {
+    public Round saveRound(@RequestBody Round round) {
         return roundRepo.save(round);
     }
 
