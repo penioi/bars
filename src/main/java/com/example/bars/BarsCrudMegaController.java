@@ -29,24 +29,24 @@ public class BarsCrudMegaController {
     private RoundRepo roundRepo;
 
 
-    @RequestMapping(value = "bar/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "bars/{id}", method = RequestMethod.GET)
     public Bar getBar(@PathVariable(name = "id") Long id) {
         return barRepo.findById(id).get();
     }
 
-    @RequestMapping(value = "bar", method = RequestMethod.GET)
-    public List<Bar> getBar() {
+    @RequestMapping(value = "bars", method = RequestMethod.GET)
+    public List<Bar> getBars() {
         List<Bar> bars = new ArrayList<>();
         barRepo.findAll().forEach(c -> bars.add(c));
         return bars;
     }
 
-    @RequestMapping(value = "bar", method = RequestMethod.POST)
+    @RequestMapping(value = "bars", method = RequestMethod.POST)
     public Bar saveBar(Bar bar) {
         return barRepo.save(bar);
     }
 
-    @RequestMapping(value = "bar/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "bars/{id}", method = RequestMethod.DELETE)
     public String removeBar(@PathVariable(name="id") Long id) {
         Bar bar = barRepo.findById(id).get();
         barRepo.delete(bar);
@@ -54,24 +54,24 @@ public class BarsCrudMegaController {
     }
 
     //---------------------------------------------------------------------------------//
-    @RequestMapping(value = "product/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "products/{id}", method = RequestMethod.GET)
     public Product getProduct(@PathVariable(name = "id") Long id) {
         return productRepo.findById(id).get();
     }
 
-    @RequestMapping(value = "product", method = RequestMethod.GET)
-    public List<Product> getProduct() {
+    @RequestMapping(value = "products", method = RequestMethod.GET)
+    public List<Product> getProducts() {
         List<Product> products = new ArrayList<>();
         productRepo.findAll().forEach(c -> products.add(c));
         return products;
     }
 
-    @RequestMapping(value = "product", method = RequestMethod.POST)
+    @RequestMapping(value = "products", method = RequestMethod.POST)
     public Product saveProduct(Product product) {
         return productRepo.save(product);
     }
 
-    @RequestMapping(value = "product/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "products/{id}", method = RequestMethod.DELETE)
     public String removeProduct(@PathVariable(name="id") Long id) {
         Product product = productRepo.findById(id).get();
         productRepo.delete(product);
@@ -79,8 +79,8 @@ public class BarsCrudMegaController {
     }
 
     //---------------------------------------------------------------------------------//
-    @RequestMapping(value = "currentPrice/{compositeId}", method = RequestMethod.GET)
-    public CurrentPrice getCurrentPrice(@PathVariable(name = "compositeId") String compositeId) {
+    @RequestMapping(value = "currentPrices/{compositeId}", method = RequestMethod.GET)
+    public CurrentPrice getCurrentPrices(@PathVariable(name = "compositeId") String compositeId) {
         String[] ids = compositeId.split(" ");
         PriceIdentity priceIdentity = new PriceIdentity();
         priceIdentity.setBarId(Long.valueOf(ids[0]));
@@ -89,19 +89,19 @@ public class BarsCrudMegaController {
         return currentPriceRepo.findById(priceIdentity).get();
     }
 
-    @RequestMapping(value = "currentPrice", method = RequestMethod.GET)
-    public List<CurrentPrice> getCurrentPrice() {
+    @RequestMapping(value = "currentPrices", method = RequestMethod.GET)
+    public List<CurrentPrice> getCurrentPrices() {
         List<CurrentPrice> currentPrices = new ArrayList<>();
         currentPriceRepo.findAll().forEach(c -> currentPrices.add(c));
         return currentPrices;
     }
 
-    @RequestMapping(value = "currentPrice", method = RequestMethod.POST)
+    @RequestMapping(value = "currentPrices", method = RequestMethod.POST)
     public CurrentPrice saveCurrentPrice(CurrentPrice currentPrice) {
         return currentPriceRepo.save(currentPrice);
     }
 
-    @RequestMapping(value = "currentPrice/{compositeId}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "currentPrices/{compositeId}", method = RequestMethod.DELETE)
     public String removeCurrentPrice(@PathVariable(name = "compositeId") String compositeId) {
         String[] ids = compositeId.split(" ");
         PriceIdentity priceIdentity = new PriceIdentity();
@@ -113,24 +113,24 @@ public class BarsCrudMegaController {
     }
 
     //---------------------------------------------------------------------------------//
-    @RequestMapping(value = "orderedBeverage/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "orderedBeverages/{id}", method = RequestMethod.GET)
     public OrderedBeverage getOrderedBeverage(@PathVariable(name = "id") Long id) {
         return orderedBeverageRepo.findById(id).get();
     }
 
-    @RequestMapping(value = "orderedBeverage", method = RequestMethod.GET)
-    public List<OrderedBeverage> getOrderedBeverage() {
+    @RequestMapping(value = "orderedBeverages", method = RequestMethod.GET)
+    public List<OrderedBeverage> getOrderedBeverages() {
         List<OrderedBeverage> orderedBeverages = new ArrayList<>();
         orderedBeverageRepo.findAll().forEach(c -> orderedBeverages.add(c));
         return orderedBeverages;
     }
 
-    @RequestMapping(value = "orderedBeverage", method = RequestMethod.POST)
+    @RequestMapping(value = "orderedBeverages", method = RequestMethod.POST)
     public OrderedBeverage saveOrderedBeverage(OrderedBeverage orderedBeverage) {
         return orderedBeverageRepo.save(orderedBeverage);
     }
 
-    @RequestMapping(value = "orderedBeverage/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "orderedBeverages/{id}", method = RequestMethod.DELETE)
     public String removeOrderedBeverage(@PathVariable(name="id") Long id) {
         OrderedBeverage orderedBeverage = orderedBeverageRepo.findById(id).get();
         orderedBeverageRepo.delete(orderedBeverage);
