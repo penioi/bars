@@ -85,11 +85,17 @@ public class BarsCrudMegaController {
     }
 
     @RequestMapping(value = "currentBarPrices/{barId}", method = RequestMethod.GET)
-    public List<CurrentPrice> getCurrentBarPrices(@PathVariable(name = "barId") Long barId) {
+    public api.BarPrices getCurrentBarPrices(@PathVariable(name = "barId") Long barId) {
         // todo - this can be done much better
         Optional<Bar> bar = barRepo.findById(barId);
-        if(bar.isPresent()) {
-            return StreamSupport.stream(currentPriceRepo.findByBar(bar.get()).spliterator(), false).collect(Collectors.toList());
+        if (bar.isPresent()) {
+            Iterable<api.BarPrices.ProductPrice> productPrices = StreamSupport.stream(currentPriceRepo.findByBar(bar.get()).spliterator(), false).map(currentPrice -> {
+                currentPrice.setBar(null);
+                return currentPrice;
+            }).map(cp -> new api.BarPrices.ProductPrice(cp.getProduct(), cp.getPrice())).
+                    collect(Collectors.toList());
+            api.BarPrices barPrices = new api.BarPrices(bar.get(), productPrices);
+            return barPrices;
         } else {
             return null;
         }
