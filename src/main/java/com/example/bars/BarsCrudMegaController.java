@@ -4,8 +4,10 @@ import com.example.bars.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @RestController
 public class BarsCrudMegaController {
@@ -33,9 +35,7 @@ public class BarsCrudMegaController {
 
     @RequestMapping(value = "bars", method = RequestMethod.GET)
     public List<Bar> getBars() {
-        List<Bar> bars = new ArrayList<>();
-        barRepo.findAll().forEach(c -> bars.add(c));
-        return bars;
+        return StreamSupport.stream(barRepo.findAll().spliterator(), false).collect(Collectors.toList());
     }
 
     @RequestMapping(value = "bars", method = RequestMethod.POST)
@@ -44,7 +44,7 @@ public class BarsCrudMegaController {
     }
 
     @RequestMapping(value = "bars/{id}", method = RequestMethod.DELETE)
-    public String removeBar(@PathVariable(name="id") Long id) {
+    public String removeBar(@PathVariable(name = "id") Long id) {
         Bar bar = barRepo.findById(id).get();
         barRepo.delete(bar);
         return "SUCCESS";//here all needs serious revamp
@@ -58,9 +58,7 @@ public class BarsCrudMegaController {
 
     @RequestMapping(value = "products", method = RequestMethod.GET)
     public List<Product> getProducts() {
-        List<Product> products = new ArrayList<>();
-        productRepo.findAll().forEach(c -> products.add(c));
-        return products;
+        return StreamSupport.stream(productRepo.findAll().spliterator(), false).collect(Collectors.toList());
     }
 
     @RequestMapping(value = "products", method = RequestMethod.POST)
@@ -69,7 +67,7 @@ public class BarsCrudMegaController {
     }
 
     @RequestMapping(value = "products/{id}", method = RequestMethod.DELETE)
-    public String removeProduct(@PathVariable(name="id") Long id) {
+    public String removeProduct(@PathVariable(name = "id") Long id) {
         Product product = productRepo.findById(id).get();
         productRepo.delete(product);
         return "SUCCESS";//here all needs serious revamp
@@ -86,11 +84,20 @@ public class BarsCrudMegaController {
         return currentPriceRepo.findById(priceIdentity).get();
     }
 
+    @RequestMapping(value = "currentBarPrices/{barId}", method = RequestMethod.GET)
+    public List<CurrentPrice> getCurrentBarPrices(@PathVariable(name = "barId") Long barId) {
+        // todo - this can be done much better
+        Optional<Bar> bar = barRepo.findById(barId);
+        if(bar.isPresent()) {
+            return StreamSupport.stream(currentPriceRepo.findByBar(bar.get()).spliterator(), false).collect(Collectors.toList());
+        } else {
+            return null;
+        }
+    }
+
     @RequestMapping(value = "currentPrices", method = RequestMethod.GET)
     public List<CurrentPrice> getCurrentPrices() {
-        List<CurrentPrice> currentPrices = new ArrayList<>();
-        currentPriceRepo.findAll().forEach(c -> currentPrices.add(c));
-        return currentPrices;
+        return StreamSupport.stream(currentPriceRepo.findAll().spliterator(), false).collect(Collectors.toList());
     }
 
     @RequestMapping(value = "currentPrices", method = RequestMethod.POST)
@@ -117,9 +124,7 @@ public class BarsCrudMegaController {
 
     @RequestMapping(value = "orderedBeverages", method = RequestMethod.GET)
     public List<OrderedBeverage> getOrderedBeverages() {
-        List<OrderedBeverage> orderedBeverages = new ArrayList<>();
-        orderedBeverageRepo.findAll().forEach(c -> orderedBeverages.add(c));
-        return orderedBeverages;
+        return StreamSupport.stream(orderedBeverageRepo.findAll().spliterator(), false).collect(Collectors.toList());
     }
 
     @RequestMapping(value = "orderedBeverages", method = RequestMethod.POST)
@@ -128,7 +133,7 @@ public class BarsCrudMegaController {
     }
 
     @RequestMapping(value = "orderedBeverages/{id}", method = RequestMethod.DELETE)
-    public String removeOrderedBeverage(@PathVariable(name="id") Long id) {
+    public String removeOrderedBeverage(@PathVariable(name = "id") Long id) {
         OrderedBeverage orderedBeverage = orderedBeverageRepo.findById(id).get();
         orderedBeverageRepo.delete(orderedBeverage);
         return "SUCCESS";//here all needs serious revamp
@@ -142,9 +147,7 @@ public class BarsCrudMegaController {
 
     @RequestMapping(value = "rounds", method = RequestMethod.GET)
     public List<Round> getRound() {
-        List<Round> rounds = new ArrayList<>();
-        roundRepo.findAll().forEach(c -> rounds.add(c));
-        return rounds;
+        return StreamSupport.stream(roundRepo.findAll().spliterator(), false).collect(Collectors.toList());
     }
 
     @RequestMapping(value = "rounds", method = RequestMethod.POST)
@@ -153,7 +156,7 @@ public class BarsCrudMegaController {
     }
 
     @RequestMapping(value = "rounds/{id}", method = RequestMethod.DELETE)
-    public String removeRound(@PathVariable(name="id") Long id) {
+    public String removeRound(@PathVariable(name = "id") Long id) {
         Round round = roundRepo.findById(id).get();
         roundRepo.delete(round);
         return "SUCCESS";//here all needs serious revamp
