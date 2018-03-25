@@ -135,24 +135,24 @@ public class BarsCrudMegaController {
     }
 
     //---------------------------------------------------------------------------------//
-    @RequestMapping(value = "round/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "rounds/{id}", method = RequestMethod.GET)
     public Round getRound(@PathVariable(name = "id") Long id) {
         return roundRepo.findById(id).get();
     }
 
-    @RequestMapping(value = "round", method = RequestMethod.GET)
+    @RequestMapping(value = "rounds", method = RequestMethod.GET)
     public List<Round> getRound() {
         List<Round> rounds = new ArrayList<>();
         roundRepo.findAll().forEach(c -> rounds.add(c));
         return rounds;
     }
 
-    @RequestMapping(value = "round", method = RequestMethod.POST)
+    @RequestMapping(value = "rounds", method = RequestMethod.POST)
     public Round saveRound(@RequestBody Round round) {
         return roundRepo.save(round);
     }
 
-    @RequestMapping(value = "round/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "rounds/{id}", method = RequestMethod.DELETE)
     public String removeRound(@PathVariable(name="id") Long id) {
         Round round = roundRepo.findById(id).get();
         roundRepo.delete(round);
