@@ -6,8 +6,8 @@ import com.example.bars.model.Product;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class api {
-    public static class BarPrices implements Serializable {
+
+    public   class BarPrices implements Serializable {
 
         private Bar bar;
 
@@ -53,4 +53,4 @@ public class api {
         }
 
     }
-}
+

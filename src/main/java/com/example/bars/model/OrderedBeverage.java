@@ -1,5 +1,7 @@
 package com.example.bars.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
@@ -10,9 +12,16 @@ public class OrderedBeverage {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "round_id")
     private Round round;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
+
+    private int quantity;
 
     private BigDecimal acutalPrice;
 
@@ -39,5 +48,21 @@ public class OrderedBeverage {
 
     public void setAcutalPrice(BigDecimal acutalPrice) {
         this.acutalPrice = acutalPrice;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }

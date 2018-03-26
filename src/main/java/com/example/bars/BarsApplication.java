@@ -10,7 +10,9 @@ import org.springframework.context.event.EventListener;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @SpringBootApplication
@@ -113,10 +115,14 @@ public class BarsApplication {
 
 
     private void initOrderedBeverage() {
+        List<Product> products = StreamSupport.stream(productRepo.findAll().spliterator(), false).collect(Collectors.toList());
         StreamSupport.stream(roundRepo.findAll().spliterator(), false).map(round -> {
             OrderedBeverage ob = new OrderedBeverage();
             ob.setRound(round);
             ob.setAcutalPrice(new BigDecimal(10 + (20 * new Random().nextDouble())));
+            ob.setProduct(products.get(new Random().nextInt(products.size())));
+            ob.setQuantity(new Random().nextInt(5));
+            ob.setAcutalPrice(currentPriceRepo.findById(new PriceIdentity(round.getBar().getId(), ob.getProduct().getId())).get().getPrice().multiply(new BigDecimal(ob.getQuantity())));
             return ob;
         }).forEach(ob -> orderedBeverageRepo.save(ob));
     }

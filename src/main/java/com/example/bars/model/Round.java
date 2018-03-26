@@ -2,6 +2,7 @@ package com.example.bars.model;
 
 import javax.persistence.*;
 import java.io.ByteArrayInputStream;
+import java.util.Collection;
 import java.util.Date;
 
 @Entity
@@ -14,6 +15,9 @@ public class Round {
     @ManyToOne
     @JoinColumn(name = "bar_id")
     private Bar bar;
+
+    @OneToMany(mappedBy = "round", cascade =  CascadeType.PERSIST)
+    private Collection<OrderedBeverage> orderedBeverages;
 
     private Date orderedAt;
 
@@ -39,5 +43,13 @@ public class Round {
 
     public void setOrderedAt(Date orderedAt) {
         this.orderedAt = orderedAt;
+    }
+
+    public Collection<OrderedBeverage> getOrderedBeverages() {
+        return orderedBeverages;
+    }
+
+    public void setOrderedBeverages(Collection<OrderedBeverage> orderedBeverages) {
+        this.orderedBeverages = orderedBeverages;
     }
 }

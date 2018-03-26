@@ -8,6 +8,14 @@ public class PriceIdentity implements Serializable {
     private Long barId;
     private Long productId;
 
+    public PriceIdentity() {
+    }
+
+    public PriceIdentity(Long barId, Long productId) {
+        this.barId = barId;
+        this.productId = productId;
+    }
+
     public Long getBarId() {
         return barId;
     }
