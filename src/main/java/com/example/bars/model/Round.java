@@ -2,6 +2,7 @@ package com.example.bars.model;
 
 import javax.persistence.*;
 import java.io.ByteArrayInputStream;
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
 
@@ -20,6 +21,8 @@ public class Round {
     private Collection<OrderedBeverage> orderedBeverages;
 
     private Date orderedAt;
+
+    private BigDecimal totalAmount;
 
     public Long getId() {
         return id;
@@ -51,5 +54,13 @@ public class Round {
 
     public void setOrderedBeverages(Collection<OrderedBeverage> orderedBeverages) {
         this.orderedBeverages = orderedBeverages;
+    }
+
+    public BigDecimal getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(BigDecimal totalAmount) {
+        this.totalAmount = totalAmount;
     }
 }

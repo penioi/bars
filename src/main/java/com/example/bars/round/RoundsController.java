@@ -54,6 +54,7 @@ public class RoundsController {
                 } ) .collect(Collectors.toList());
 
         round.setOrderedBeverages(order);
+        round.setTotalAmount(StreamSupport.stream(order.spliterator(), false).map(orderedBeverage -> orderedBeverage.getAcutalPrice()).reduce(BigDecimal.ZERO, BigDecimal::add));
         roundRepo.save(round);
         return new ResponseEntity<Round>(round, HttpStatus.CREATED);
     }
